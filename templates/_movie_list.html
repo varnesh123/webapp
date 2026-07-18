@@ -1,0 +1,22 @@
+{% if movies %}
+  {% for m in movies %}
+    <div class="ticket">
+      <div class="ticket-main">
+        <h3>{{ m.display_title }}</h3>
+        <div class="meta">{{ m.votes }} vote{{ 's' if m.votes != 1 else '' }}</div>
+      </div>
+      <div class="ticket-stub">
+        <div class="score">{{ m.avg_rating }}<span>/10</span></div>
+        <form action="{{ url_for('delete', title=m.title) }}" method="post"
+              onsubmit="return confirm('Remove {{ m.display_title }}?');">
+          <button type="submit" class="btn-danger">Remove</button>
+        </form>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="empty-state">
+    <strong>No titles here.</strong><br>
+    Log your first rating above to start the ledger.
+  </div>
+{% endif %}
